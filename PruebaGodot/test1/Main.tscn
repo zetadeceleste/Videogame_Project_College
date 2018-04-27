@@ -6,6 +6,8 @@
 
 script/source = "extends KinematicBody2D
 
+#hola, estoy comentando, lalalalalalallalalalalalalalalasdosajdsaldjsaodjsalkfjsoirjewlfnsdjoifjewiojfjkdsljeoiwjdeq
+
 export (int) var SPEED = 200
 var mov = Vector2()
 
