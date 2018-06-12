@@ -39,6 +39,12 @@
                     <button id="botoninstrucciones">Instrucciones</button>
                     <button id="botonjugar">Jugar</button>
                 </div>
+
+
+
+
+
+
                 <div id="copyleft">
                     <span class="copyright">Copy
                         <span>right</span>
@@ -46,6 +52,127 @@
                     <span class="copy">©</span>2018
                     <span class="color">ElChivoLab</span>
                 </div>
+            </div>
+
+        </section>
+        <!-- Sección Instrucciones -->
+        
+        <section id="instrucciones">
+
+            <div id="personajes" data-countstart="2" data-newsprite="500">
+
+                <div class="dentrointrucciones">
+                    <div class="pantallamenu">
+                        <div class="titulo">
+                            <p>
+                                <b>Eres Luis:</b>
+                            </p>
+                        </div>
+                        <div class="imagenes">
+                            <img src="Assets/Luis.png" id="luis" data-increase="5">
+                        </div>
+                        <div class="descripcion">
+                            <p>Quieres convertirte en el
+                                <b>Papá de los Helados</b> de tu pueblo.
+                                <br>Para ello tienes que recolectar todos los helados que puedas.
+                                <br>
+                                <br>Sin embargo tu mamá quiere que comas
+                                <b>brócoli</b>, pero a tí no te apetece...
+                                <br>es por ello que debes evitarlo o perderás dulzura.
+                                <br>
+                                <br>El juego se termina cuando se te acaba la dulzura.
+                        </div>
+                        <div class="botones">
+                            <button class="proximo">Más</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="dentrointrucciones">
+                    <div class="pantallamenu">
+                        <div class="titulo">
+                            <p>
+                                <b>Cómo jugar:</b>
+                            </p>
+                        </div>
+                        <div class="imagenesdirecciones">
+                            <div class="derecha">
+                                <div id="luisderecha"></div>
+                                <div class="flechaderecha"></div>
+                            </div>
+                            <div class="izquierda">
+                                <div class="flechaizquierda"></div>
+                                <div id="luisizquierda"></div>
+                            </div>
+                        </div>
+                        <div class="descripcion">
+                            <br>Utiliza el mouse o teclado para moverte.</p>
+                        </div>
+                        <div class="botones">
+                            <button class="proximo">Más</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="dentrointrucciones">
+                    <div class="pantallamenu">
+                        <div class="titulo">
+                            <p>
+                                <b>Helados:</b>
+                            </p>
+                        </div>
+                        <div class="imagenes">
+                            <img src="Assets/helado_1.png" class="sprite" data-collision="energy:20" data-type="bueno">
+                            <img src="Assets/helado_2.png" class="sprite" data-collision="energy:20" data-type="bueno">
+                            <img src="Assets/helado_3.png" class="sprite" data-collision="energy:20" data-type="bueno">
+                        </div>
+                        <div class="descripcion">
+                            <p>Atrapar alguno te dará 20 puntos de dulzura.
+                                <br> En caso de no lograrlo... ¡perderás 20 puntos!</p>
+                        </div>
+                        <div class="botones">
+                            <button class="proximo">Más</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="dentrointrucciones">
+                    <div class="pantallamenu">
+                        <div class="titulo">
+                            <p>
+                                <b>Brócoli:</b>
+                            </p>
+                        </div>
+                        <div class="imagenes">
+                            <img src="Assets/broccoli.png" class="sprite" data-collision="energy:-50" data-type="malo">
+                        </div>
+                        <div class="descripcion">
+                            <p>Si por error lo atrapas, te quitará 50 puntos dulzura.</p>
+                        </div>
+                        <div class="botones">
+                            <button class="endinstructions">Volver al menú</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Sección Juego -->
+
+        <section id="juego">
+
+            <div id="puntajeinfo">
+                <div id="dulzura">Dulzura:&nbsp
+                    <output>
+                        100
+                    </output>
+                </div>
+                <div id="puntaje">Puntaje:&nbsp
+                    <output>
+                    </output>
+                </div>
+            </div>
+            <div id="cambiabackground">
+                <canvas></canvas>
             </div>
 
         </section>

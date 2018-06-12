@@ -220,3 +220,15 @@ section {
         font-size: 1.2em;
     }
 }
+
+#personajes div.dentrointrucciones {
+    position: absolute;
+    top: -900px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+#personajes.current, #personajes.dentrointrucciones {
+    width: 80%;
+    margin: 5px auto;
+}
