@@ -48,7 +48,71 @@
    rightdown = false,
    leftdown = false;
 
+/*
+    Configuracion del juego
+    */
 
+   function init() {
+    var actual,
+    sprdata,
+    informacionpuntaje,
+    i,
+    j;
+
+    /*
+    Trae el Sprite del HTML
+    */
+
+    sprdata = document.querySelectorAll('img.sprite');
+    i = sprdata.length;
+    while (i--) {
+        actual = {};
+        actual.effects = [];
+        actual.img = sprdata[i];
+        actual.offset = sprdata[i].offsetWidth / 2;
+        informacionpuntaje = sprdata[i].getAttribute('data-collision').split(',');
+        j = informacionpuntaje.length;
+        while (j--) {
+            var keyval = informacionpuntaje[j].split(':');
+            actual.effects.push({
+                effect: keyval[0],
+                value: keyval[1]
+            });
+        }
+        actual.type = sprdata[i].getAttribute('data-type');
+        listaSprites.push(actual);
+    }
+    contadorSprite = listaSprites.length;
+    initsprites = +$('#personajes').getAttribute('data-countstart');
+    nuevoSprite = +$('#personajes').getAttribute('data-newsprite');
+
+    /*
+    Habilita el teclado en el juego
+    */
+    contenedor.tabIndex = -1;
+    contenedor.focus();
+
+    /*
+    Asigna Manejadores de Eventos
+    */
+    contenedor.addEventListener('keydown', onkeydown, false);
+    contenedor.addEventListener('keyup', onkeyup, false);
+    contenedor.addEventListener('click', onclick, false);
+    contenedor.addEventListener('mousemove', onmousemove, false);
+
+    /*
+    scoreGuardados sirve para guardar los últimos puntajes obtenidos
+    */
+
+    scoresGuardados = { last: 0, high: 0 };
+
+    /*
+    Muestra la introduccion
+    */
+
+    showintro();
+
+};
 
 
 
