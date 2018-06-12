@@ -47,3 +47,24 @@ body, html {
     font-weight: 200;
     color: #180f2a;
 }
+
+.pantallamenu .audiodiv {
+    display: flex;
+    margin: 0px !important;
+    padding-right: 50px;
+    flex-direction: row;
+    justify-content: flex-end;
+    cursor: pointer;
+}
+
+.pantallamenu .audioon {
+    background-image: url("Assets/audio_on.png");
+    width: 60px;
+    height: 60px;
+}
+
+.pantallamenu .audiomute {
+    background-image: url("Assets/audio_mute.png");
+    width: 60px;
+    height: 60px;
+}

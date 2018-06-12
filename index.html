@@ -8,17 +8,23 @@
 </head>
 
 <body>
-    <div id="contenedor">
-            <section id="principal">
+    <!-- Música del juego -->
+    <audio autoplay src="Music/pixel_adventures.mp3" id="audio" loop></audio>
 
-                    <div class="pantallamenu">
-                        <div class="grantitulo">
-                            <span>El Papá de los Helados 2.0</span>
-                            <p>¡Recolecta todos los helados que caen... y conviértete en el Papá de los Helados!</p>
-                        </div>
-                    </div>
-        
-                </section>
+    <div id="contenedor">
+        <section id="principal">
+
+            <div class="pantallamenu">
+                <div class="audiodiv">
+                    <img src="Assets/audio_on.png" id="audioico" onclick="activaDesactivaAudio();">
+                </div>
+                <div class="grantitulo">
+                    <span>El Papá de los Helados 2.0</span>
+                    <p>¡Recolecta todos los helados que caen... y conviértete en el Papá de los Helados!</p>
+                </div>
+            </div>
+
+        </section>
 
     </div>
 </body>
