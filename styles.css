@@ -145,6 +145,32 @@ section {
     -ms-transition: 1s ease-in-out;
 }
 
+/* Estilos del copyleft */
+
+#copyleft {
+    height: 100%;
+    width: 100%;
+}
+
+#copyleft .color {
+    color: #223e65;
+}
+
+#copyleft:hover span.copyright span {
+    display: none;
+}
+
+#copyleft:hover span.copyright:after {
+    content: "left ";
+}
+
+#copyleft:hover span.copy {
+    display: inline-block;
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
 /* @media responsiva: para pantallas de tamaño standard (width: 480px) de celulares y tablets */
 
 @media (max-width: 480px) {
