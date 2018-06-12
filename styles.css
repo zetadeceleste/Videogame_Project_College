@@ -232,3 +232,146 @@ section {
     width: 80%;
     margin: 5px auto;
 }
+#juego, #juegoterminado, #instrucciones, #principal {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: -900px;
+}
+
+/* Transición que da el efecto de aparecer desde arriba */
+
+#juego.current, #juegoterminado.current, #instrucciones.current, #principal.current {
+    top: 0;
+    transition: top 1s;
+    /* Para compatibilidad con mayoría de navegadores */
+    -webkit-transition: top 1s;
+    -moz-transition: top 1s;
+    -o-transition: top 1s;
+    -ms-transition: top 1s;
+}
+
+.pantallamenu .descripcion b {
+    color: #223e65;
+}
+
+section {
+    display: block;
+}
+
+#jugador {
+    display: block;
+    margin: 5px auto;
+}
+
+#personajes div.dentrointrucciones {
+    position: absolute;
+    top: -900px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+#personajes.current, #personajes.dentrointrucciones {
+    width: 80%;
+    margin: 5px auto;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+}
+
+#puntajeinfo {
+    position: absolute;
+    width: 100%;
+    padding: 5px 0;
+}
+
+#dulzura, #puntaje {
+    padding-left: 20px;
+    font-size: 1.4em;
+    font-weight: 300;
+    color: #fff;
+}
+
+#dulzura output, #puntaje output {
+    right: 20px;
+}
+
+.mensaje {
+    font-size: 1.6em;
+    font-weight: 300;
+    color: #223e65;
+}
+
+/* Para que no aparezca el cursor del mouse dentro del juego */
+
+#juego {
+    cursor: none;
+}
+
+/* Acompaña a función "cambiaBackground" en script.js */
+
+#cambiabackground {
+    background-image: url("Assets/1.png");
+    background-size: cover;
+    transition: 1s ease-in-out;
+    /* Para compatibilidad con mayoría de navegadores */
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -webkit-transition: 1s ease-in-out;
+    -moz-transition: 1s ease-in-out;
+    -o-transition: 1s ease-in-out;
+    -ms-transition: 1s ease-in-out;
+}
+
+/* @media responsiva: para pantallas de tamaño standard (width: 480px) de celulares y tablets */
+
+@media (max-width: 480px) {
+    .audiodiv img {
+        width: 45px;
+        height: 45px;
+    }
+    .pantallamenu {
+        margin-top: 20px;
+    }
+    .pantallamenu div {
+        margin-top: 15px;
+    }
+    .pantallamenu .audiodiv {
+        padding-right: 25px;
+        margin: 0px !important;
+    }
+    .pantallamenu .grantitulo span {
+        font-size: 2.2em;
+    }
+    .pantallamenu .grantitulo p {
+        font-size: 1em;
+    }
+    .pantallamenu .puntaje {
+        margin: 5px 20px;
+        padding: 5px;
+        font-size: 1.2em;
+    }
+    .pantallamenu .puntaje .espaciado {
+        margin-right: 0px;
+    }
+    .pantallamenu .descripcion {
+        font-size: 0.9em;
+        margin: 0px 5px;
+    }
+    .pantallamenu .botones button {
+        width: 300px;
+        margin-bottom: 10px;
+        font-size: 1.1em;
+    }
+    #dulzura, #puntaje {
+        padding-left: 10px;
+        font-size: 1.2em;
+    }
+    .mensaje {
+        margin: 5px 0px;
+        font-size: 1.2em;
+    }
+}
