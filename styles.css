@@ -7,9 +7,16 @@ body, html {
     background: #fff;
     height: 100%;
     font-size: 1.2em;
-    font-family: Verdana, Tahoma, sans-serif;
+    font-family: luckiestguy, Verdana, Tahoma, sans-serif;
     color: #180f2a;
     overflow: hidden;
+}
+
+/* Agregar fuente luckiestguy */
+
+@font-face {
+    font-family: 'luckiestguy';
+    src: url('Font/luckiestguy.ttf') format('truetype');
 }
 
 #contenedor {
@@ -21,6 +28,12 @@ body, html {
     outline: 0;
     overflow: hidden;
 }
+
+section {
+    display: block;
+}
+
+/* Estilos que se compartirán en el menú */
 
 .pantallamenu {
     display: flex;
@@ -57,6 +70,8 @@ body, html {
     cursor: pointer;
 }
 
+/* Estilos de los botones de audio */
+
 .pantallamenu .audioon {
     background-image: url("Assets/audio_on.png");
     width: 60px;
@@ -69,7 +84,7 @@ body, html {
     height: 60px;
 }
 
-/* Estilo de puntaje y botones */
+/* Estilos de puntaje y botones */
 
 .pantallamenu .puntaje {
     display: flex;
@@ -97,7 +112,7 @@ body, html {
 .pantallamenu .botones button {
     background: #f4f1e0;
     width: 350px;
-    font-family: Verdana, Tahoma, sans-serif;
+    font-family: luckiestguy, Verdana, Tahoma, sans-serif;
     font-size: 1.3em;
     color: #180f2a;
     margin-bottom: 15px;
@@ -112,4 +127,20 @@ body, html {
     color: #f4f1e0;
     cursor: pointer;
     box-shadow: 5px 5px 2px grey;
+}
+
+/* Acompaña a función "cambiaBackground" en script.js */
+
+#cambiabackground {
+    background-image: url("Assets/1.png");
+    background-size: cover;
+    transition: 1s ease-in-out;
+    /* Para compatibilidad con mayoría de navegadores */
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -webkit-transition: 1s ease-in-out;
+    -moz-transition: 1s ease-in-out;
+    -o-transition: 1s ease-in-out;
+    -ms-transition: 1s ease-in-out;
 }
