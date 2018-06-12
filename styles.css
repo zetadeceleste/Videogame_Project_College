@@ -144,3 +144,53 @@ section {
     -o-transition: 1s ease-in-out;
     -ms-transition: 1s ease-in-out;
 }
+
+/* @media responsiva: para pantallas de tamaño standard (width: 480px) de celulares y tablets */
+
+@media (max-width: 480px) {
+    .audiodiv img {
+        width: 45px;
+        height: 45px;
+    }
+    .pantallamenu {
+        margin-top: 20px;
+    }
+    .pantallamenu div {
+        margin-top: 15px;
+    }
+    .pantallamenu .audiodiv {
+        padding-right: 25px;
+        margin: 0px !important;
+    }
+    .pantallamenu .grantitulo span {
+        font-size: 2.2em;
+    }
+    .pantallamenu .grantitulo p {
+        font-size: 1em;
+    }
+    .pantallamenu .puntaje {
+        margin: 5px 20px;
+        padding: 5px;
+        font-size: 1.2em;
+    }
+    .pantallamenu .puntaje .espaciado {
+        margin-right: 0px;
+    }
+    .pantallamenu .descripcion {
+        font-size: 0.9em;
+        margin: 0px 5px;
+    }
+    .pantallamenu .botones button {
+        width: 300px;
+        margin-bottom: 10px;
+        font-size: 1.1em;
+    }
+    #dulzura, #puntaje {
+        padding-left: 10px;
+        font-size: 1.2em;
+    }
+    .mensaje {
+        margin: 5px 0px;
+        font-size: 1.2em;
+    }
+}
