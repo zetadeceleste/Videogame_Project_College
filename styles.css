@@ -68,3 +68,48 @@ body, html {
     width: 60px;
     height: 60px;
 }
+
+/* Estilo de puntaje y botones */
+
+.pantallamenu .puntaje {
+    display: flex;
+    background-color: #f14c38;
+    margin: 10px 50px;
+    padding: 10px 0px;
+    font-size: 1.5em;
+    color: #f4f1e0;
+    border: 3px solid;
+    border-color: #f4f1e0;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.pantallamenu .puntaje .espaciado {
+    margin-right: 20px;
+}
+
+.pantallamenu .botones {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pantallamenu .botones button {
+    background: #f4f1e0;
+    width: 350px;
+    font-family: Verdana, Tahoma, sans-serif;
+    font-size: 1.3em;
+    color: #180f2a;
+    margin-bottom: 15px;
+    padding: 15px 0px;
+    border-radius: 15px;
+}
+
+/* Agregar efecto al colocar cursor sobre botones */
+
+.pantallamenu .botones button:hover {
+    background-color: #180f2a;
+    color: #f4f1e0;
+    cursor: pointer;
+    box-shadow: 5px 5px 2px grey;
+}
