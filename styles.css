@@ -1,0 +1,49 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    background: #fff;
+    height: 100%;
+    font-size: 1.2em;
+    font-family: Verdana, Tahoma, sans-serif;
+    color: #180f2a;
+    overflow: hidden;
+}
+
+#contenedor {
+    background-image: url("Assets/1.png");
+    background-position: top;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    outline: 0;
+    overflow: hidden;
+}
+
+.pantallamenu {
+    display: flex;
+    margin-top: 75px;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+}
+
+.pantallamenu .grantitulo {
+    display: flex;
+    flex-direction: column;
+}
+
+.pantallamenu .grantitulo span {
+    font-size: 2.4em;
+    font-weight: 500;
+    color: #223e65;
+}
+
+.pantallamenu .grantitulo p {
+    padding: 0px 20px;
+    font-size: 1.4em;
+    font-weight: 200;
+    color: #180f2a;
+}
