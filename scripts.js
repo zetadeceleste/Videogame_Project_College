@@ -1,10 +1,10 @@
 (function () {
 
     /*
-    Elementos del DOM
+    Elementos del DOM (Estructura Lógica, se ubican los Objetos que serán modificados)
     */
 
-    var contenedor = $('#contenedor'),
+    var contenedor = $('#contenedor'), // $ -> Identifica los ID en etiquetas dentro del HTML
         juego = $('#juego'),
         player = $('#luis'),
         principal = $('#principal'),
@@ -55,7 +55,7 @@
     Configuracion del juego
     */
 
-    function init() {
+    function inicia() {
         var actual,
             spriteData,
             informacionPuntaje,
@@ -92,12 +92,14 @@
         /*
         Habilita el teclado en el juego
         */
+
         contenedor.tabIndex = -1;
         contenedor.focus();
 
         /*
         Asigna Manejadores de Eventos
         */
+
         contenedor.addEventListener('keydown', enTeclaAbajo, false);
         contenedor.addEventListener('keyup', enTeclaArriba, false);
         contenedor.addEventListener('click', enClick, false);
@@ -168,10 +170,12 @@
     */
 
     function enTeclaAbajo(ev) {
+
         /*
         Detecta el evento de que el usuario está utilizando el teclado
         y compara con los códigos ASCII del teclado para asignarle la función que corresponda
         */
+
         if (ev.keyCode === 39) {
             izquierdaAbajo = true;
         }
@@ -216,7 +220,7 @@
     }
 
     /*
-    muestra las instrucciones para jugarlo
+    Muestra las instrucciones
     */
 
     function mostrarInstrucciones() {
@@ -225,9 +229,13 @@
         ahora = 0;
         personajes[ahora].className = 'current';
     }
-    /*movimientos del personaje*/
+
     /*
-    Accion cuando se activa Izquierda
+    Movimientos del Personaje
+    */
+
+    /*
+    Acción cuando se activa Izquierda
     */
 
     function instruccionesListo() {
@@ -237,7 +245,7 @@
     }
 
     /*
-    Accion cuando se activa Derecha ahora
+    Acción cuando se activa Derecha
     */
 
     function instruccionesSiguiente() {
@@ -302,7 +310,7 @@
         puntaje++;
 
         /*
-        Cuando aumenta puntaje agrega mas Sprites
+        Cuando aumenta puntaje agrega más Sprites
         */
 
         if (~~(puntaje / nuevoSprite) > incrementeNivel) {
@@ -315,10 +323,10 @@
         */
 
         if (izquierdaAbajo) {
-            playerright();
+            jugadorDerecha();
         }
         if (derechaAbajo) {
-            playerleft();
+            jugadorIzquierda();
         }
 
         ctx.save();
@@ -327,7 +335,7 @@
         ctx.restore();
 
         /*
-          Cuando aun tienes dulzura, renderiza Siguiente instruccion, sino Juego Terminado
+          Cuando aun tienes dulzura, renderiza siguiente instruccion, sino Juego Terminado
         */
 
         puntajes.energy = Math.min(puntajes.energy, 100);
@@ -340,10 +348,10 @@
     };
 
     /*
-    Accion cuando se activa la izquierda
+    Acción cuando se activa la izquierda
     */
 
-    function playerleft() {
+    function jugadorIzquierda() {
         x -= playerIncrease;
         if (x < offset) {
             x = offset;
@@ -354,7 +362,7 @@
     Accion cuando se activa la derecha
     */
 
-    function playerright() {
+    function jugadorDerecha() {
         x += playerIncrease;
         if (x > width - offset) {
             x = width - offset;
@@ -497,7 +505,7 @@
     Ejecutar
     */
 
-    init();
+    inicia();
 })();
 
 /*
