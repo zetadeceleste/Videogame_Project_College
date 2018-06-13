@@ -26,7 +26,7 @@
         energy: startenergy
     },
         playerincrease = +player.getAttribute('data-increase');
-/*
+    /*
     Contadores
     */
 
@@ -135,7 +135,119 @@ function cambiaBackground() {
 
 }
 
+/*
+  Manejo de Clicks
+  */
 
+  function onclick(ev) {
+      var t = ev.target;
+      if (estadoDelJuego === 'juegoterminado') {
+          if (t.id === 'jugardenuevo') {
+              muestraInicio();
+          }
+      }
+      if (t.className === 'proximo') {
+          instruccionesSiguiente();
+      }
+      if (t.className === 'endinstructions') {
+          instruccionesListo();
+      }
+      if (t.id === 'botoninstrucciones') {
+          mostrarInstrucciones();
+      }
+      if (t.id === 'botonjugar') {
+          startgame(),
+              cambiaBackground();
+      }
+      ev.preventDefault();
+  }
+
+  /*
+  Manejo de Teclado
+  */
+
+  function onkeydown(ev) {
+      /*
+      Detecta el evento de que el usuario está utilizando el teclado
+      y compara con los códigos ASCII del teclado para asignarle la función que corresponda
+      */
+      if (ev.keyCode === 39) {
+          rightdown = true;
+      }
+      else if (ev.keyCode === 37) {
+          leftdown = true;
+      }
+  }
+  function onkeyup(ev) {
+      if (ev.keyCode === 39) {
+          rightdown = false;
+      }
+      else if (ev.keyCode === 37) {
+          leftdown = false;
+      }
+  }
+
+  /*
+  Manejo del Mouse
+  */
+
+  function onmousemove(ev) {
+      var mx = ev.clientX - contenedor.offsetLeft;
+      if (mx < offset) {
+          mx = offset;
+      }
+      if (mx > width - offset) {
+          mx = width - offset;
+      }
+      x = mx;
+  }
+
+  /*
+  Introduccion
+  */
+
+  function muestraInicio() {
+      setactual(principal);
+      estadoDelJuego = 'principal';
+      var scoreelms = principal.querySelectorAll('output');
+      scoreelms[0].innerHTML = scoresGuardados.last;
+      scoreelms[1].innerHTML = scoresGuardados.high;
+  }
+
+  /*
+  muestra las instrucciones para jugarlo
+  */
+
+  function mostrarInstrucciones() {
+      setactual(instrucciones);
+      estadoDelJuego = 'instrucciones';
+      now = 0;
+      personajes[now].className = 'current';
+  }
+  /*movimientos del personaje*/
+  /*
+  Accion cuando se activa Izquierda
+  */
+
+  function instruccionesListo() {
+      personajes[now].className = 'dentrointrucciones';
+      now = 0;
+      muestraInicio();
+  }
+
+  /*
+  Accion cuando se activa Derecha ahora
+  */
+
+  function instruccionesSiguiente() {
+      if (personajes[now + 1]) {
+          now = now + 1;
+      }
+      if (personajes[now]) {
+          personajes[now - 1].className = 'dentrointrucciones';
+          personajes[now].className = 'current';
+      }
+  }
 
 
 
