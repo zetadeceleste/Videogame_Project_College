@@ -249,6 +249,68 @@ function cambiaBackground() {
       }
   }
 
+  /*
+  Bucle Principal del Juego
+  */
+
+  function loop() {
+      ctx.clearRect(0, 0, width, height);
+
+      /*
+      Renderiza y actualiza Sprites
+      */
+
+      j = sprites.length;
+      for (i = 0; i < j; i++) {
+          sprites[i].render();
+          sprites[i].update();
+      }
+
+      /*
+      Muestra Scores
+      */
+
+      muestraDulzura.innerHTML = scores.energy;
+      muestraScore.innerHTML = ~~(score / 10);
+      score++;
+
+      /*
+      Cuando aumenta Score agrega mas Sprites
+      */
+
+      if (~~(score / nuevoSprite) > levelincrease) {
+          sprites.push(addsprite());
+          levelincrease++;
+      }
+
+      /*
+      Posicion Jugador
+      */
+
+      if (rightdown) {
+          playerright();
+      }
+      if (leftdown) {
+          playerleft();
+      }
+
+      ctx.save();
+      ctx.translate(x - offset, playerY);
+      ctx.drawImage(player, 0, 0);
+      ctx.restore();
+
+      /*
+        Cuando aun tienes dulzura, renderiza Siguiente instruccion, sino Juego Terminado
+      */
+
+      scores.energy = Math.min(scores.energy, 100);
+      if (scores.energy > 0) {
+          requestAnimationFrame(loop);
+      } else {
+          juegoterminado();
+      }
+
+  };
 
 
 
