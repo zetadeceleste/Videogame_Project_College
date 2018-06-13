@@ -12,42 +12,44 @@
         muestraScore = $('#puntaje output'),
         muestraDulzura = $('#dulzura output'),
         canvas = $('canvas'),
-        terminado = $('#juegoterminado'),
-        msjjuegoterminado = terminado.querySelector('.mensaje'),
-        personajes = document.querySelectorAll('div.dentrointrucciones'),
+        terminado = $('#juego-terminado'),
+        msjJuegoTerminado = terminado.querySelector('.mensaje'),
+        personajes = document.querySelectorAll('div.dentro-instrucciones'),
         ctx = canvas.getContext('2d'),
-        startenergy = +muestraDulzura.innerHTML;
+        comienzaDulzura = +muestraDulzura.innerHTML;
 
     /*
     Datos del Juego
     */
 
-    var scores = {
-        energy: startenergy
+    var puntajes = {
+        energy: comienzaDulzura
     },
-        playerincrease = +player.getAttribute('data-increase');
+        playerIncrease = +player.getAttribute('data-increase');
 
     /*
     Contadores
     */
 
-    var score = 0,
+    var puntaje = 0,
         estadoDelJuego = null,
         x = 0,
         sprites = [],
         listaSprites = [],
         contadorSprite = 0,
-        now = 0,
+        ahora = 0,
         viejo = null,
         playerY = 0,
-        offset = 0,
-        width = 0, height = 0,
-        levelincrease = 0, i = 0,
+        offset = 0, // Offset se refiere a la distancia (desplazamiento) desde el inicio hasta cierto elemento dentro de un array
+        width = 0,
+        height = 0,
+        incrementeNivel = 0,
+        i = 0,
         scoresGuardados = null,
-        initsprites = 0,
+        iniciaSprites = 0,
         nuevoSprite = 500,
-        rightdown = false,
-        leftdown = false;
+        izquierdaAbajo = false,
+        derechaAbajo = false;
 
     /*
     Configuracion del juego
@@ -55,36 +57,36 @@
 
     function init() {
         var actual,
-        sprdata,
-        informacionpuntaje,
-        i,
-        j;
+            spriteData,
+            informacionPuntaje,
+            i,
+            j;
 
         /*
         Trae el Sprite del HTML
         */
 
-        sprdata = document.querySelectorAll('img.sprite');
-        i = sprdata.length;
+        spriteData = document.querySelectorAll('img.sprite');
+        i = spriteData.length;
         while (i--) {
             actual = {};
-            actual.effects = [];
-            actual.img = sprdata[i];
-            actual.offset = sprdata[i].offsetWidth / 2;
-            informacionpuntaje = sprdata[i].getAttribute('data-collision').split(',');
-            j = informacionpuntaje.length;
+            actual.efectos = [];
+            actual.img = spriteData[i];
+            actual.offset = spriteData[i].offsetWidth / 2;
+            informacionPuntaje = spriteData[i].getAttribute('data-collision').split(',');
+            j = informacionPuntaje.length;
             while (j--) {
-                var keyval = informacionpuntaje[j].split(':');
-                actual.effects.push({
-                    effect: keyval[0],
-                    value: keyval[1]
+                var valorTecla = informacionPuntaje[j].split(':');
+                actual.efectos.push({
+                    efecto: valorTecla[0],
+                    value: valorTecla[1]
                 });
             }
-            actual.type = sprdata[i].getAttribute('data-type');
+            actual.type = spriteData[i].getAttribute('data-type');
             listaSprites.push(actual);
         }
         contadorSprite = listaSprites.length;
-        initsprites = +$('#personajes').getAttribute('data-countstart');
+        iniciaSprites = +$('#personajes').getAttribute('data-countstart');
         nuevoSprite = +$('#personajes').getAttribute('data-newsprite');
 
         /*
@@ -96,10 +98,10 @@
         /*
         Asigna Manejadores de Eventos
         */
-        contenedor.addEventListener('keydown', onkeydown, false);
-        contenedor.addEventListener('keyup', onkeyup, false);
-        contenedor.addEventListener('click', onclick, false);
-        contenedor.addEventListener('mousemove', onmousemove, false);
+        contenedor.addEventListener('keydown', enTeclaAbajo, false);
+        contenedor.addEventListener('keyup', enTeclaArriba, false);
+        contenedor.addEventListener('click', enClick, false);
+        contenedor.addEventListener('mousemove', enMovimientoMouse, false);
 
         /*
         scoreGuardados sirve para guardar los últimos puntajes obtenidos
@@ -111,9 +113,9 @@
         Muestra la introduccion
         */
 
-        muestraInicio();
+        muestraPrincipio();
 
-    }
+    };
 
     /*
     Función para cambiar el background durante el juego
@@ -121,41 +123,41 @@
     */
 
     function cambiaBackground() {
-        var images = ['Assets/2.png', 'Assets/3.png', 'Assets/4.png', 'Assets/5.png', 'Assets/6.png', 'Assets/7.png', 'Assets/8.png'];
+        var imagenes = ['Assets/2.png', 'Assets/3.png', 'Assets/4.png', 'Assets/5.png', 'Assets/6.png', 'Assets/7.png', 'Assets/8.png']
 
         setInterval(function () {
 
-            document.getElementById("cambiabackground").style.backgroundImage = "url('" + images[0] + "')";
+            document.getElementById("cambia-background").style.backgroundImage = "url('" + imagenes[0] + "')";
 
-            var firstValue = images.shift();
-            images.push(firstValue);
+            var primerValor = imagenes.shift();
+            imagenes.push(primerValor);
 
         }, 12000);
 
     }
 
     /*
-    Manejo de Clicks
+    Manejo de Clicks 
     */
 
-    function onclick(ev) {
+    function enClick(ev) {
         var t = ev.target;
-        if (estadoDelJuego === 'juegoterminado') {
-            if (t.id === 'jugardenuevo') {
-                muestraInicio();
+        if (estadoDelJuego === 'juego-terminado') {
+            if (t.id === 'jugar-de-nuevo') {
+                muestraPrincipio();
             }
         }
         if (t.className === 'proximo') {
             instruccionesSiguiente();
         }
-        if (t.className === 'endinstructions') {
+        if (t.className === 'fin-instrucciones') {
             instruccionesListo();
         }
-        if (t.id === 'botoninstrucciones') {
+        if (t.id === 'boton-instrucciones') {
             mostrarInstrucciones();
         }
-        if (t.id === 'botonjugar') {
-            comenzarJuego(),
+        if (t.id === 'boton-jugar') {
+            juegoEmpieza(),
                 cambiaBackground();
         }
         ev.preventDefault();
@@ -165,24 +167,24 @@
     Manejo de Teclado
     */
 
-    function onkeydown(ev) {
+    function enTeclaAbajo(ev) {
         /*
         Detecta el evento de que el usuario está utilizando el teclado
         y compara con los códigos ASCII del teclado para asignarle la función que corresponda
         */
         if (ev.keyCode === 39) {
-            rightdown = true;
+            izquierdaAbajo = true;
         }
         else if (ev.keyCode === 37) {
-            leftdown = true;
+            derechaAbajo = true;
         }
     }
-    function onkeyup(ev) {
+    function enTeclaArriba(ev) {
         if (ev.keyCode === 39) {
-            rightdown = false;
+            izquierdaAbajo = false;
         }
         else if (ev.keyCode === 37) {
-            leftdown = false;
+            derechaAbajo = false;
         }
     }
 
@@ -190,7 +192,7 @@
     Manejo del Mouse
     */
 
-    function onmousemove(ev) {
+    function enMovimientoMouse(ev) {
         var mx = ev.clientX - contenedor.offsetLeft;
         if (mx < offset) {
             mx = offset;
@@ -205,8 +207,8 @@
     Introduccion
     */
 
-    function muestraInicio() {
-        setactual(principal);
+    function muestraPrincipio() {
+        setActual(principal);
         estadoDelJuego = 'principal';
         var scoreelms = principal.querySelectorAll('output');
         scoreelms[0].innerHTML = scoresGuardados.last;
@@ -218,10 +220,10 @@
     */
 
     function mostrarInstrucciones() {
-        setactual(instrucciones);
+        setActual(instrucciones);
         estadoDelJuego = 'instrucciones';
-        now = 0;
-        personajes[now].className = 'current';
+        ahora = 0;
+        personajes[ahora].className = 'current';
     }
     /*movimientos del personaje*/
     /*
@@ -229,9 +231,9 @@
     */
 
     function instruccionesListo() {
-        personajes[now].className = 'dentrointrucciones';
-        now = 0;
-        muestraInicio();
+        personajes[ahora].className = 'dentro-instrucciones';
+        ahora = 0;
+        muestraPrincipio();
     }
 
     /*
@@ -239,21 +241,21 @@
     */
 
     function instruccionesSiguiente() {
-        if (personajes[now + 1]) {
-            now = now + 1;
+        if (personajes[ahora + 1]) {
+            ahora = ahora + 1;
         }
-        if (personajes[now]) {
-            personajes[now - 1].className = 'dentrointrucciones';
-            personajes[now].className = 'current';
+        if (personajes[ahora]) {
+            personajes[ahora - 1].className = 'dentro-instrucciones';
+            personajes[ahora].className = 'current';
         }
     }
-    /*comenzarJuego prepara el juego para comezar y setea los valores
+
     /*
-    Comienza el Juego
+    Prepara el juego para empezar y setea los valores
     */
 
-    function comenzarJuego() {
-        setactual(juego);
+    function juegoEmpieza() {
+        setActual(juego);
         estadoDelJuego = 'jugando';
         document.body.className = 'jugando';
         width = juego.offsetWidth;
@@ -264,58 +266,58 @@
         offset = player.offsetWidth / 2;
         x = width / 2;
         sprites = [];
-        for (i = 0; i < initsprites; i++) {
-            sprites.push(addsprite());
+        for (i = 0; i < iniciaSprites; i++) {
+            sprites.push(agregaSprite());
         }
-        scores.energy = startenergy;
-        levelincrease = 0;
-        score = 0;
-        muestraDulzura.innerHTML = startenergy;
-        buclePrincipal();
+        puntajes.energy = comienzaDulzura;
+        incrementeNivel = 0;
+        puntaje = 0;
+        muestraDulzura.innerHTML = comienzaDulzura;
+        ciclo();
     }
 
     /*
     Bucle Principal del Juego
     */
 
-    function buclePrincipal() {
+    function ciclo() {
         ctx.clearRect(0, 0, width, height);
 
         /*
         Renderiza y actualiza Sprites
         */
 
-        var j = sprites.length;
+        j = sprites.length;
         for (i = 0; i < j; i++) {
             sprites[i].render();
             sprites[i].update();
         }
 
         /*
-        Muestra Scores
+        Muestra puntajes
         */
 
-        muestraDulzura.innerHTML = scores.energy;
-        muestraScore.innerHTML = ~~(score / 10);
-        score++;
+        muestraDulzura.innerHTML = puntajes.energy;
+        muestraScore.innerHTML = ~~(puntaje / 10);
+        puntaje++;
 
         /*
-        Cuando aumenta Score agrega mas Sprites
+        Cuando aumenta puntaje agrega mas Sprites
         */
 
-        if (~~(score / nuevoSprite) > levelincrease) {
-            sprites.push(addsprite());
-            levelincrease++;
+        if (~~(puntaje / nuevoSprite) > incrementeNivel) {
+            sprites.push(agregaSprite());
+            incrementeNivel++;
         }
 
         /*
         Posicion Jugador
         */
 
-        if (rightdown) {
+        if (izquierdaAbajo) {
             playerright();
         }
-        if (leftdown) {
+        if (derechaAbajo) {
             playerleft();
         }
 
@@ -328,21 +330,21 @@
           Cuando aun tienes dulzura, renderiza Siguiente instruccion, sino Juego Terminado
         */
 
-        scores.energy = Math.min(scores.energy, 100);
-        if (scores.energy > 0) {
-            requestAnimationFrame(buclePrincipal);
+        puntajes.energy = Math.min(puntajes.energy, 100);
+        if (puntajes.energy > 0) {
+            requestAnimationFrame(ciclo);
         } else {
-            juegoterminado();
+            juegoTerminado();
         }
 
-    }
+    };
 
     /*
     Accion cuando se activa la izquierda
     */
 
     function playerleft() {
-        x -= playerincrease;
+        x -= playerIncrease;
         if (x < offset) {
             x = offset;
         }
@@ -353,7 +355,7 @@
     */
 
     function playerright() {
-        x += playerincrease;
+        x += playerIncrease;
         if (x > width - offset) {
             x = width - offset;
         }
@@ -363,15 +365,15 @@
     Juego Terminado
     */
 
-    function juegoterminado() {
-        document.body.className = 'juegoterminado';
-        setactual(terminado);
-        estadoDelJuego = 'juegoterminado';
-        var nowscore = ~~(score / 10);
+    function juegoTerminado() {
+        document.body.className = 'juego-terminado';
+        setActual(terminado);
+        estadoDelJuego = 'juego-terminado';
+        var nowscore = ~~(puntaje / 10);
         terminado.querySelector('output').innerHTML = nowscore;
         scoresGuardados.last = nowscore;
         if (nowscore > scoresGuardados.high) {
-            msjjuegoterminado.innerH9TML = msjjuegoterminado.getAttribute('data-highscore');
+            msjJuegoTerminado.innerH9TML = msjJuegoTerminado.getAttribute('data-highscore');
             scoresGuardados.high = nowscore;
         }
     }
@@ -385,10 +387,10 @@
         this.py = 0;
         this.vx = 0;
         this.vy = 0;
-        this.goodguy = false;
+        this.bueno = false;
         this.height = 0;
         this.width = 0;
-        this.effects = [];
+        this.efectos = [];
         this.img = null;
         this.update = function () {
             this.px += this.vx;
@@ -396,9 +398,9 @@
             if (~~(this.py + 10) > playerY) {
                 if ((x - offset) < this.px && this.px < (x + offset)) {
                     this.py = -200;
-                    i = this.effects.length;
+                    i = this.efectos.length;
                     while (i--) {
-                        scores[this.effects[i].effect] += +this.effects[i].value;
+                        puntajes[this.efectos[i].efecto] += +this.efectos[i].value;
                     }
                 }
             }
@@ -407,12 +409,12 @@
             }
             if (this.py > height + 100) {
                 if (this.type === 'bueno') {
-                    i = this.effects.length;
+                    i = this.efectos.length;
                     while (i--) {
-                        scores[this.effects[i].effect] -= +this.effects[i].value;
+                        puntajes[this.efectos[i].efecto] -= +this.efectos[i].value;
                     }
                 }
-                setspritedata(this);
+                seteaDataSprite(this);
             }
         };
         this.render = function () {
@@ -422,30 +424,31 @@
             ctx.drawImage(this.img, 0, 0);
             ctx.restore();
         };
-    }
+    };
 
-    function addsprite() {
+    function agregaSprite() {
         var s = new sprite();
-        setspritedata(s);
+        seteaDataSprite(s);
         return s;
-    }
+    };
+
     /*
-    funcion que obtiene los sprites para ostrarlos por pantalla
+    Obtiene los Sprites para mostrarlos por pantalla
     */
 
-    function setspritedata(sprite) {
+    function seteaDataSprite(sprite) {
         var r = ~~rand(0, contadorSprite);
         sprite.img = listaSprites[r].img;
         sprite.height = sprite.img.offsetHeight;
         sprite.width = sprite.img.offsetWidth;
         sprite.type = listaSprites[r].type;
-        sprite.effects = listaSprites[r].effects;
+        sprite.efectos = listaSprites[r].efectos;
         sprite.offset = listaSprites[r].offset;
         sprite.py = -100;
         sprite.px = rand(sprite.width / 2, width - sprite.width / 2);
         sprite.vx = rand(-1, 2);
         sprite.vy = rand(1, 5);
-    }
+    };
 
     /*
     Seleccionador de Query
@@ -453,26 +456,26 @@
 
     function $(str) {
         return document.querySelector(str);
-    }
+    };
 
     /*
-    Obtiene numero random entre un minimo y maximo
+    Obtiene número random entre un minimo y máximo
     */
 
     function rand(min, max) {
         return ((Math.random() * (max - min)) + min);
-    }
+    };
 
     /*
     Muestra parte actual del juego y oculta la anterior
     */
-    function setactual(elm) {
+    function setActual(elm) {
         if (viejo) {
             viejo.className = '';
         }
         elm.className = 'current';
         viejo = elm;
-    }
+    };
 
     /*
     Detecta y Setea requestAnimationFrame
@@ -501,19 +504,19 @@
 Función para activar/desactivar el audio
 */
 
-var cambiaicoaudio = 0,
+var toggleIcoAudio = 0,
     audio = document.getElementById("audio");
 
-function activaDesactivaAudio() {
+function toggleAudio() {
 
-    if (cambiaicoaudio === 0) {
-        document.getElementById("audioico").setAttribute('src', 'Assets/audio_mute.png');
-        cambiaicoaudio++;
+    if (toggleIcoAudio == 0) {
+        document.getElementById("audio-ico").setAttribute('src', 'Assets/audio_mute.png');
+        toggleIcoAudio++;
         audio.pause();
     }
     else {
-        document.getElementById("audioico").setAttribute('src', 'Assets/audio_on.png');
-        cambiaicoaudio--;
+        document.getElementById("audio-ico").setAttribute('src', 'Assets/audio_on.png');
+        toggleIcoAudio--;
         audio.play();
     }
 }

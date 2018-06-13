@@ -1,30 +1,31 @@
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>El Papá de los Helados 2.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <link rel="stylesheet" href="styles.css" type="text/css">
 </head>
 
 <body>
 
     <!-- Música del juego -->
-    <audio autoplay src="Music/pixel_adventures.mp3" id="audio" loop></audio>
+    <audio src="Music/pixel_adventures.ogg" id="audio" autoplay loop></audio>
 
     <div id="contenedor">
 
+        <!-- Sección Menú Principal -->
         <section id="principal">
 
-            <div class="pantallamenu">
-                <div class="audiodiv">
-                    <img src="Assets/audio_on.png" id="audioico" onclick="activaDesactivaAudio();">
+            <div class="pantalla-menu">
+                <div class="audio-div">
+                    <img src="Assets/audio_on.png" id="audio-ico" onclick="toggleAudio();">
                 </div>
-                <div class="grantitulo">
+                <div class="gran-titulo">
                     <span>El Papá de los Helados 2.0</span>
                     <p>¡Recolecta todos los helados que caen... y conviértete en el Papá de los Helados!</p>
                 </div>
-
                 <div class="puntaje">
                     <div class="espaciado">
                         Último puntaje:&nbsp
@@ -36,28 +37,30 @@
                     </div>
                 </div>
                 <div class="botones">
-                    <button id="botoninstrucciones">Instrucciones</button>
-                    <button id="botonjugar">Jugar</button>
+                    <button id="boton-instrucciones">Instrucciones</button>
+                    <button id="boton-jugar">Jugar</button>
                 </div>
-
-                <div id="copyleft">
-                    <span class="copyright">Copy
-                        <span>right</span>
-                    </span>&nbsp;
-                    <span class="copy">©</span>2018
-                    <span class="color">ElChivoLab</span>
+                <div class="copyleft-div">
+                    <div id="copyleft">
+                        <span class="copyright">Copy
+                            <span>right</span>
+                        </span>&nbsp;
+                        <span class="copy">©</span>2018
+                        <span class="color">ElChivoLab</span>
+                    </div>
                 </div>
             </div>
 
         </section>
+
         <!-- Sección Instrucciones -->
 
         <section id="instrucciones">
 
             <div id="personajes" data-countstart="2" data-newsprite="500">
 
-                <div class="dentrointrucciones">
-                    <div class="pantallamenu">
+                <div class="dentro-instrucciones">
+                    <div class="pantalla-menu">
                         <div class="titulo">
                             <p>
                                 <b>Eres Luis:</b>
@@ -82,21 +85,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="dentrointrucciones">
-                    <div class="pantallamenu">
+                <div class="dentro-instrucciones">
+                    <div class="pantalla-menu">
                         <div class="titulo">
                             <p>
                                 <b>Cómo jugar:</b>
                             </p>
                         </div>
-                        <div class="imagenesdirecciones">
+                        <div class="imagenes-direcciones">
                             <div class="derecha">
-                                <div id="luisderecha"></div>
-                                <div class="flechaderecha"></div>
+                                <div id="luis-derecha"></div>
+                                <div class="flecha-derecha"></div>
                             </div>
                             <div class="izquierda">
-                                <div class="flechaizquierda"></div>
-                                <div id="luisizquierda"></div>
+                                <div class="flecha-izquierda"></div>
+                                <div id="luis-izquierda"></div>
                             </div>
                         </div>
                         <div class="descripcion">
@@ -107,8 +110,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="dentrointrucciones">
-                    <div class="pantallamenu">
+                <div class="dentro-instrucciones">
+                    <div class="pantalla-menu">
                         <div class="titulo">
                             <p>
                                 <b>Helados:</b>
@@ -128,8 +131,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="dentrointrucciones">
-                    <div class="pantallamenu">
+                <div class="dentro-instrucciones">
+                    <div class="pantalla-menu">
                         <div class="titulo">
                             <p>
                                 <b>Brócoli:</b>
@@ -142,7 +145,7 @@
                             <p>Si por error lo atrapas, te quitará 50 puntos dulzura.</p>
                         </div>
                         <div class="botones">
-                            <button class="endinstructions">Volver al menú</button>
+                            <button class="fin-instrucciones">Volver al menú</button>
                         </div>
                     </div>
                 </div>
@@ -155,7 +158,7 @@
 
         <section id="juego">
 
-            <div id="puntajeinfo">
+            <div id="puntaje-info">
                 <div id="dulzura">Dulzura:&nbsp
                     <output>
                         100
@@ -166,16 +169,17 @@
                     </output>
                 </div>
             </div>
-            <div id="cambiabackground">
+            <div id="cambia-background">
                 <canvas></canvas>
             </div>
 
         </section>
+
         <!-- Sección Juego Terminado -->
 
-        <section id="juegoterminado">
+        <section id="juego-terminado">
 
-            <div class="pantallamenu">
+            <div class="pantalla-menu">
                 <div class="titulo">
                     <p>¡Juego Terminado!</p>
                 </div>
@@ -187,7 +191,7 @@
                     <p class="mensaje" data-highscore="¡Nuevo Puntaje Máximo!"></p>
                 </div>
                 <div class="botones">
-                    <button id="jugardenuevo">Jugar de nuevo</button>
+                    <button id="jugar-de-nuevo">Jugar de nuevo</button>
                 </div>
             </div>
 
